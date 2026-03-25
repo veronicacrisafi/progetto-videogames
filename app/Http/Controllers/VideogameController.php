@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Videogame;
 use Illuminate\Http\Request;
 
 class VideogameController extends Controller
@@ -11,7 +12,9 @@ class VideogameController extends Controller
      */
     public function index()
     {
-        return view('videogames.index');
+        $videogames = Videogame::all();
+        //dd($videogames);
+        return view('videogames.index', compact('videogames'));
     }
 
     /**
