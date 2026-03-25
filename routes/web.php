@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VideogameController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,5 +28,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/profile', [DashboardController::class, 'profile'])
             ->name('profile');
     });
+
+Route::resource('videogames', VideogameController::class);
 
 require __DIR__ . '/auth.php';
