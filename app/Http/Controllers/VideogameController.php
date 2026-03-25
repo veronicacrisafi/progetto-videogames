@@ -11,7 +11,7 @@ class VideogameController extends Controller
      */
     public function index()
     {
-        //
+        return view('videogames.index');
     }
 
     /**
