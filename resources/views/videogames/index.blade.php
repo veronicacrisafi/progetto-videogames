@@ -9,6 +9,10 @@
                         <h4 class="card-title mb-5">{{ $videogame->titolo_videogame }}</h4>
                         <h5 class="card-subtitle mb-4 text-color-secondary">{{ $videogame->descrizione_videogame }}</h5>
                         <h6 class="card-subtitle mb-3">Anno: {{ $videogame->anno_videogame }}</h6>
+                        <div class="mt-auto">
+                            <a class='btn btn-outline-primary w-100'
+                                href="{{ route('videogames.show', $videogame->id) }}">Visualizza</a>
+                        </div>
                     </div>
                 </div>
             </div>
