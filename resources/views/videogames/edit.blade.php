@@ -2,8 +2,9 @@
 @section('titolo', 'Aggiungi un videogame!')
 @section('contenuto')
 
-    <form action="{{ route('videogames.store') }}" method="POST">
+    <form action="{{ route('videogames.update', $videogame) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="form-control mb-3 d-flex flex-column">
             <label for="titolo_videogame">Titolo Videogame</label>
             <input type="text" name="titolo_videogame" id="titolo_videogame" class="rounded"

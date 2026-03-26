@@ -65,9 +65,15 @@ class VideogameController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Videogame $videogame)
     {
         //
+        $data = $request->all();
+        $videogame->titolo_videogame = $data['titolo_videogame'];
+        $videogame->descrizione_videogame = $data['descrizione_videogame'];
+        $videogame->anno_videogame = $data['anno_videogame'];
+        $videogame->update();
+        return redirect()->route('videogames.show', $videogame);
     }
 
     /**
