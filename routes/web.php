@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VideogameController;
+use App\Http\Controllers\Admin\VideogameController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])
             ->name('profile');
     });
 
-Route::resource('videogames', VideogameController::class);
+Route::resource('videogames', VideogameController::class)
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
