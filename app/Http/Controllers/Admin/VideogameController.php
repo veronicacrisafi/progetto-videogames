@@ -24,6 +24,7 @@ class VideogameController extends Controller
     public function create()
     {
         //
+        return view('videogames.create');
     }
 
     /**
@@ -32,6 +33,7 @@ class VideogameController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
