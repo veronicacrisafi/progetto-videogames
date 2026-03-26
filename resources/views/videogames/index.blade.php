@@ -1,6 +1,8 @@
 @extends('layouts.videogames')
 @section('titolo', 'Tutti i videogames')
 @section('contenuto')
+    <a href="{{ route('videogames.create') }}" class="btn btn-outline-success my-4">Aggiungi nuovo videogame</a>
+
     <div class="row">
         @foreach ($videogames as $videogame)
             <div class="col-4 my-3">
