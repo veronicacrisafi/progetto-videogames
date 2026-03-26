@@ -1,7 +1,11 @@
 @extends('layouts.videogames')
 
 @section('titolo', 'VIDEOGAME')
-
+@section('backLink')
+    <p class="mb-3">
+        <a class="btn btn-outline-secondary" href="{{ route('videogames.index') }}">🔙 confermo e torno ai videogames</a>
+    </p>
+@endsection
 @section('contenuto')
     <div class="row">
         <div class="col">
@@ -11,7 +15,8 @@
                     <p class="card-text">Descrizione: {{ $videogame->descrizione_videogame }}</p>
                     <p class="card-text">Anno di uscita: {{ $videogame->anno_videogame }}</p>
                     <div class="d-flex py-4">
-                        <a href="{{ route('videogames.edit', $videogame) }}" class="btn btn-outline-warning w-50">Modifica</a>
+                        <a href="{{ route('videogames.edit', $videogame) }}"
+                            class="btn btn-outline-warning w-50">Modifica</a>
                         <button type="button" class="btn btn-outline-danger w-50" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Elimina

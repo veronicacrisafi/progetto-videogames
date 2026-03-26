@@ -18,7 +18,7 @@
         <div class="form-control mb-3 d-flex flex-column">
             <label for="anno_videogame">Anno uscita videogame</label>
             <input type="year" name="anno_videogame" id="anno_videogame" class="rounded"
-                value="{{ $videogame->anno_videogame }}">
+                value="{{ $videogame->anno_videogame }}" required>
         </div>
         <div class="d-flex flex-row gap-2">
             <input type="submit" class="btn btn-outline-success w-50" value="Salva">

@@ -14,6 +14,7 @@
         <h1>
             @yield('titolo')
         </h1>
+        @yield('backLink')
         @yield('contenuto')
     </div>
 
