@@ -20,6 +20,15 @@
             <label for="descrizione_videogame">Descrizione</label>
             <input type="text" name="descrizione_videogame" id="descrizione_videogame" class="rounded" required>
         </div>
+        <div class="form-control mb-3 d-flex flex-wrap align-items-start">
+            @foreach ($consoles as $console)
+                <div class="console me-3 mb-2 d-flex align-items-center" style="min-width: 200px;">
+                    <input type="checkbox" name="consoles[]" value="{{ $console->id }}" id="console-{{ $console->id }}"
+                        class="me-1">
+                    <label for="console-{{ $console->id }}">{{ $console->nome_console }}</label>
+                </div>
+            @endforeach
+        </div>
         <div class="form-control mb-3 d-flex flex-column">
             <label for="anno_videogame">Anno uscita videogame</label>
             <input type="year" name="anno_videogame" id="anno_videogame" class="rounded" required>

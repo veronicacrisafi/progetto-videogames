@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Console;
 use App\Models\Genre;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class VideogameController extends Controller
     {
         //
         $genres = Genre::all();
-        return view('videogames.create', compact('genres'));
+        $consoles = Console::all();
+        return view('videogames.create', compact('genres', 'consoles'));
     }
 
     /**
