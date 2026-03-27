@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             VideogamesTableSeeder::class,
             GenresTableSeeder::class,
+            ConsoleTableSeeder::class,
 
         ]);
     }
