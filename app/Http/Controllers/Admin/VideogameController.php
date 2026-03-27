@@ -113,6 +113,8 @@ class VideogameController extends Controller
     public function destroy(Videogame $videogame)
     {
         //
+        $videogame->genres()->detach();
+        $videogame->consoles()->detach();
         $videogame->delete();
         return redirect()->route('videogames.index');
     }
