@@ -48,6 +48,9 @@ class VideogameController extends Controller
         if ($request->has('genres')) {
             $newVideogame->genres()->attach($data['genres']);
         }
+        if ($request->has('consoles')) {
+            $newVideogame->consoles()->attach($data['consoles']);
+        }
 
         return redirect()->route('videogames.show', $newVideogame);
     }
