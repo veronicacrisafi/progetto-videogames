@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Genre;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class VideogameController extends Controller
     public function create()
     {
         //
-        return view('videogames.create');
+        $genres = Genre::all();
+        return view('videogames.create', compact('genres'));
     }
 
     /**
@@ -50,7 +52,7 @@ class VideogameController extends Controller
     public function show(Videogame $videogame)
     {
         //
-        dd($videogame->genres);
+        //dd($videogame->genres);
         return view('videogames.show', compact('videogame'));
     }
 
