@@ -38,6 +38,16 @@
             <input type="year" name="anno_videogame" id="anno_videogame" class="rounded"
                 value="{{ $videogame->anno_videogame }}" required>
         </div>
+        <div class="form-control mb-3 d-flex flex-column">
+            <label for="developer_id">Sviluppatore</label>
+            <select name="developer_id" id="developer_id" class="rounded" required>
+                @foreach ($developers as $developer)
+                    <option value="{{ $developer->id }}"
+                        {{ $videogame->developer_id == $developer->id ? 'selected' : '' }}>
+                        {{ $developer->nome_sviluppatore }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="d-flex flex-row gap-2">
             <input type="submit" class="btn btn-outline-success w-50" value="Salva">
             <a href="{{ route('videogames.index') }}" class="btn btn-outline-secondary w-50">Indietro</a>

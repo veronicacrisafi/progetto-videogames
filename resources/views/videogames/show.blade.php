@@ -29,6 +29,7 @@
                         @endif
                     </div>
                     <p class="card-text">Anno di uscita: {{ $videogame->anno_videogame }}</p>
+                    <p class="card-text">Sviluppatore: {{ $videogame->developer?->nome_sviluppatore }}</p>
                     <div class="d-flex py-4">
                         <a href="{{ route('videogames.edit', $videogame) }}"
                             class="btn btn-outline-warning w-50">Modifica</a>

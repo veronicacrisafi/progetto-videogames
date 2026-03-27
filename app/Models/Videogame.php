@@ -16,7 +16,7 @@ class Videogame extends Model
         return $this->belongsToMany(Console::class);
     }
 
-    public function developers()
+    public function developer()
     {
         return $this->belongsTo(Developer::class);
     }

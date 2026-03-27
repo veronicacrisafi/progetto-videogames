@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Console;
+use App\Models\Developer;
 use App\Models\Genre;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
@@ -28,7 +29,8 @@ class VideogameController extends Controller
         //
         $genres = Genre::all();
         $consoles = Console::all();
-        return view('videogames.create', compact('genres', 'consoles'));
+        $developers = Developer::all();
+        return view('videogames.create', compact('genres', 'consoles', 'developers'));
     }
 
     /**
@@ -43,6 +45,7 @@ class VideogameController extends Controller
         $newVideogame->titolo_videogame = $data['titolo_videogame'];
         $newVideogame->descrizione_videogame = $data['descrizione_videogame'];
         $newVideogame->anno_videogame = $data['anno_videogame'];
+        $newVideogame->developer_id = $data['developer_id'];
         $newVideogame->save();
 
         if ($request->has('genres')) {
@@ -73,7 +76,8 @@ class VideogameController extends Controller
         //
         $genres = Genre::all();
         $consoles = Console::all();
-        return view('videogames.edit', compact('videogame', 'genres', 'consoles'));
+        $developers = Developer::all();
+        return view('videogames.edit', compact('videogame', 'genres', 'consoles', 'developers'));
     }
 
     /**
@@ -86,6 +90,8 @@ class VideogameController extends Controller
         $videogame->titolo_videogame = $data['titolo_videogame'];
         $videogame->descrizione_videogame = $data['descrizione_videogame'];
         $videogame->anno_videogame = $data['anno_videogame'];
+        $videogame->developer_id = $data['developer_id'];
+
         $videogame->update();
         if ($request->has('genres')) {
             $videogame->genres()->sync($data['genres']);

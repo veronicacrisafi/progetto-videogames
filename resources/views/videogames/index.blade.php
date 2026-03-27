@@ -30,6 +30,7 @@
                         </div>
                         <p>Anno:</p>
                         <h6 class="card-subtitle mb-3">{{ $videogame->anno_videogame }}</h6>
+                        <p>Sviluppatore: {{ $videogame->developer?->nome_sviluppatore }}</p>
                         <div class="mt-auto">
                             <a class='btn btn-outline-primary w-100'
                                 href="{{ route('videogames.show', $videogame->id) }}">Visualizza</a>
