@@ -50,6 +50,7 @@ class VideogameController extends Controller
     public function show(Videogame $videogame)
     {
         //
+        dd($videogame->genres);
         return view('videogames.show', compact('videogame'));
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Videogame extends Model
 {
-    public function genre()
+    public function genres()
     {
         return $this->belongsToMany(Genre::class);
     }

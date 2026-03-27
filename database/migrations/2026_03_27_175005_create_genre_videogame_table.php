@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('genre_videogame', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('genre_id');
-            $table->foreignId('videogame_id');
+            $table->foreignId('genre_id')->constrained();
+            $table->foreignId('videogame_id')->constrained();
             $table->timestamps();
         });
     }
