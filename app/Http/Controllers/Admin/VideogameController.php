@@ -92,6 +92,11 @@ class VideogameController extends Controller
         } else {
             $videogame->genres()->detach();
         }
+        if ($request->has('consoles')) {
+            $videogame->consoles()->sync($data['consoles']);
+        } else {
+            $videogame->consoles()->detach();
+        }
 
         return redirect()->route('videogames.show', $videogame);
     }
