@@ -18,8 +18,18 @@
                                 @endforeach
                             @endif
                         </div>
+                        <p>Descrizione: </p>
                         <h5 class="card-subtitle mb-4 text-color-secondary">{{ $videogame->descrizione_videogame }}</h5>
-                        <h6 class="card-subtitle mb-3">Anno: {{ $videogame->anno_videogame }}</h6>
+                        <div class="mb-3">
+                            <p>Per Console: </p>
+                            @if (count($videogame->consoles) > 0)
+                                @foreach ($videogame->consoles as $console)
+                                    <span class="badge text-bg-secondary">{{ $console->nome_console }}</span>
+                                @endforeach
+                            @endif
+                        </div>
+                        <p>Anno:</p>
+                        <h6 class="card-subtitle mb-3">{{ $videogame->anno_videogame }}</h6>
                         <div class="mt-auto">
                             <a class='btn btn-outline-primary w-100'
                                 href="{{ route('videogames.show', $videogame->id) }}">Visualizza</a>

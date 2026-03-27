@@ -27,9 +27,9 @@
         <div class="form-control mb-3 d-flex flex-wrap align-items-start">
             @foreach ($consoles as $console)
                 <div class="console me-3 mb-2 d-flex align-items-center" style="min-width: 200px;">
-                    <input type="checkbox" name="consoles[]" value="{{ $console->id }}" id="console-{{ $console->id }}"
-                        {{ $videogame->consoles->contains($consoles->id) ? 'checked' : '' }} class="me-1">
-                    <label for="console-{{ $console->id }}">{{ $console->nome_console }}</label>
+                    <input type="checkbox" name="consoles[]" value="{{ $console->id }}" id="consoles-{{ $console->id }}"
+                        {{ $videogame->consoles->contains($console->id) ? 'checked' : '' }} class="me-1">
+                    <label for="consoles-{{ $console->id }}">{{ $console->nome_console }}</label>
                 </div>
             @endforeach
         </div>
