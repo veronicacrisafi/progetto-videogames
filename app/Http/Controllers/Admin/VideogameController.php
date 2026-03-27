@@ -43,7 +43,9 @@ class VideogameController extends Controller
         $newVideogame->anno_videogame = $data['anno_videogame'];
         $newVideogame->save();
 
-        $newVideogame->genres()->attach($data['genres']);
+        if ($request->has('genres')) {
+            $newVideogame->genres()->attach($data['genres']);
+        }
 
         return redirect()->route('videogames.show', $newVideogame);
     }
@@ -64,7 +66,8 @@ class VideogameController extends Controller
     public function edit(Videogame $videogame)
     {
         //
-        return view('videogames.edit', compact('videogame'));
+        $genres = Genre::all();
+        return view('videogames.edit', compact('videogame', 'genres'));
     }
 
     /**
@@ -78,6 +81,12 @@ class VideogameController extends Controller
         $videogame->descrizione_videogame = $data['descrizione_videogame'];
         $videogame->anno_videogame = $data['anno_videogame'];
         $videogame->update();
+        if ($request->has('genres')) {
+            $videogame->genres()->sync($data['genres']);
+        } else {
+            $videogame->genres()->detach();
+        }
+
         return redirect()->route('videogames.show', $videogame);
     }
 
