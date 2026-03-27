@@ -12,6 +12,14 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h4 class="card-title mb-5">{{ $videogame->titolo_videogame }}</h4>
+                    <div class="mb-3">
+                        @if (count($videogame->genres) > 0)
+                            @foreach ($videogame->genres as $genre)
+                                <span class="badge"
+                                    style="background-color: {{ $genre->colore }}">{{ $genre->genere_videogame }}</span>
+                            @endforeach
+                        @endif
+                    </div>
                     <p class="card-text">Descrizione: {{ $videogame->descrizione_videogame }}</p>
                     <p class="card-text">Anno di uscita: {{ $videogame->anno_videogame }}</p>
                     <div class="d-flex py-4">
