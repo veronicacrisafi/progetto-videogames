@@ -52,6 +52,7 @@ class VideogamesTableSeeder extends Seeder
             $newVideogame->titolo_videogame = $gioco['titolo_videogame'];
             $newVideogame->descrizione_videogame = $gioco['descrizione_videogame'];
             $newVideogame->anno_videogame = $gioco['anno_videogame'];
+            $newVideogame->developer_id = rand(1, 10);
             $newVideogame->save();
         }
     }

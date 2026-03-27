@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);*/
         $this->call([
+            DevelopersTableSeeder::class,
             VideogamesTableSeeder::class,
             GenresTableSeeder::class,
             ConsoleTableSeeder::class,
-            DevelopersTableSeeder::class,
 
         ]);
     }
