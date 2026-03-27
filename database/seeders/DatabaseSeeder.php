@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             VideogamesTableSeeder::class,
             GenresTableSeeder::class,
             ConsoleTableSeeder::class,
+            DevelopersTableSeeder::class,
 
         ]);
     }
