@@ -72,7 +72,8 @@ class VideogameController extends Controller
     {
         //
         $genres = Genre::all();
-        return view('videogames.edit', compact('videogame', 'genres'));
+        $consoles = Console::all();
+        return view('videogames.edit', compact('videogame', 'genres', 'consoles'));
     }
 
     /**
