@@ -21,6 +21,13 @@
                         @endif
                     </div>
                     <p class="card-text">Descrizione: {{ $videogame->descrizione_videogame }}</p>
+                    <div class="mb-3">
+                        @if (count($videogame->consoles) > 0)
+                            @foreach ($videogame->consoles as $console)
+                                <span class="badge text-bg-secondary">{{ $console->nome_console }}</span>
+                            @endforeach
+                        @endif
+                    </div>
                     <p class="card-text">Anno di uscita: {{ $videogame->anno_videogame }}</p>
                     <div class="d-flex py-4">
                         <a href="{{ route('videogames.edit', $videogame) }}"
