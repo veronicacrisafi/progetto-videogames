@@ -10,6 +10,7 @@
                     <div class="card-body d-flex flex-column">
                         <h4 class="card-title mb-3">{{ $videogame->titolo_videogame }}</h4>
                         <div class="mb-3">
+                            <p>Genere:</p>
                             @if (count($videogame->genres) > 0)
                                 @foreach ($videogame->genres as $genre)
                                     <span class="badge"
