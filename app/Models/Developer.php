@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Developer extends Model
 {
     //
+    public function videogames()
+    {
+        return $this->hasMany(Videogame::class);
+    }
 }
