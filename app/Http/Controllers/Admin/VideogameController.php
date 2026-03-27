@@ -43,6 +43,8 @@ class VideogameController extends Controller
         $newVideogame->anno_videogame = $data['anno_videogame'];
         $newVideogame->save();
 
+        $newVideogame->genres()->attach($data['genres']);
+
         return redirect()->route('videogames.show', $newVideogame);
     }
 
