@@ -39,8 +39,15 @@ class VideogameController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $data = $request->all();
+        $data = $request->validate([
+            'titolo_videogame' => 'required|string|max:255',
+            'descrizione_videogame' => 'required|string',
+            'anno_videogame' => 'required|integer|min:1950|max:2100',
+            'developer_id' => 'required|exists:developers,id',
+            'genres' => 'nullable|array',
+            'consoles' => 'nullable|array',
+            'image' => 'nullable|image|mimes:jpeg,png,gif,webp|max:5120',
+        ]);
 
         $newVideogame = new Videogame();
         $newVideogame->titolo_videogame = $data['titolo_videogame'];
@@ -49,14 +56,17 @@ class VideogameController extends Controller
         $newVideogame->developer_id = $data['developer_id'];
         $newVideogame->save();
 
-        if ($request->has('genres')) {
+        if ($request->hasFile('image')) {
+            $img_url = Storage::putFile('videogames', $data['image']);
+            $newVideogame->image = $img_url;
+            $newVideogame->save();
+        }
+
+        if (isset($data['genres'])) {
             $newVideogame->genres()->attach($data['genres']);
         }
-        if ($request->has('consoles')) {
+        if (isset($data['consoles'])) {
             $newVideogame->consoles()->attach($data['consoles']);
-        }
-        if (array_key_exists('image', $data)) {
-            $img_url = Storage::putFile('videogames', $data['image']);
         }
 
         return redirect()->route('videogames.show', $newVideogame);

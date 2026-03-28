@@ -22,6 +22,12 @@
                         </div>
                     </div>
 
+                    @if ($videogame->image)
+                        <div class="mb-4">
+                            <img src="{{ asset('storage/' . $videogame->image) }}" alt="copertina">
+                        </div>
+                    @endif
+
                     <div class="mb-4">
                         <p class="label-title">Generi</p>
                         @if (count($videogame->genres) > 0)
