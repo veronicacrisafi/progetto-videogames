@@ -1,56 +1,75 @@
 @extends('layouts.videogames')
-@section('titolo', 'Aggiungi un videogame!')
+@section('titolo', 'Modifica il videogame')
 @section('contenuto')
+    @if ($errors->any())
+        <div class="alert alert-danger soft-alert mb-4">
+            Controlla i campi del form prima di salvare.
+        </div>
+    @endif
 
-    <form action="{{ route('videogames.update', $videogame) }}" method="POST">
+    <form action="{{ route('videogames.update', $videogame) }}" method="POST" class="form-shell">
         @csrf
         @method('PUT')
-        <div class="form-control mb-3 d-flex flex-column">
-            <label for="titolo_videogame">Titolo Videogame</label>
-            <input type="text" name="titolo_videogame" id="titolo_videogame" class="rounded"
-                value="{{ $videogame->titolo_videogame }}" required>
+        <div class="field-panel mb-3">
+            <label for="titolo_videogame" class="form-label">Titolo Videogame</label>
+            <input type="text" name="titolo_videogame" id="titolo_videogame" class="form-control"
+                value="{{ old('titolo_videogame', $videogame->titolo_videogame) }}" required>
         </div>
-        <div class="form-control mb-3 d-flex flex-wrap align-items-start">
-            @foreach ($genres as $genre)
-                <div class="genre me-3 mb-2 d-flex align-items-center" style="min-width: 200px;">
-                    <input type="checkbox" name="genres[]" value="{{ $genre->id }}" id="genre-{{ $genre->id }}"
-                        {{ $videogame->genres->contains($genre->id) ? 'checked' : '' }} class="me-1">
-                    <label for="genre-{{ $genre->id }}">{{ $genre->genere_videogame }}</label>
-                </div>
-            @endforeach
+
+        <div class="field-panel mb-3">
+            <p class="form-label mb-3">Generi</p>
+            <div class="chip-grid">
+                @foreach ($genres as $genre)
+                    <label class="choice-chip" for="genre-{{ $genre->id }}">
+                        <input type="checkbox" name="genres[]" value="{{ $genre->id }}" id="genre-{{ $genre->id }}"
+                            {{ in_array($genre->id, old('genres', $videogame->genres->pluck('id')->all())) ? 'checked' : '' }}
+                            class="form-check-input">
+                        <span>{{ $genre->genere_videogame }}</span>
+                    </label>
+                @endforeach
+            </div>
         </div>
-        <div class="form-control mb-3 d-flex flex-column">
-            <label for="descrizione_videogame">Descrizione</label>
-            <input type="text" name="descrizione_videogame" id="descrizione_videogame" class="rounded"
-                value="{{ $videogame->descrizione_videogame }}" required>
+
+        <div class="field-panel mb-3">
+            <label for="descrizione_videogame" class="form-label">Descrizione</label>
+            <textarea name="descrizione_videogame" id="descrizione_videogame" class="form-control" rows="5" required>{{ old('descrizione_videogame', $videogame->descrizione_videogame) }}</textarea>
         </div>
-        <div class="form-control mb-3 d-flex flex-wrap align-items-start">
-            @foreach ($consoles as $console)
-                <div class="console me-3 mb-2 d-flex align-items-center" style="min-width: 200px;">
-                    <input type="checkbox" name="consoles[]" value="{{ $console->id }}" id="consoles-{{ $console->id }}"
-                        {{ $videogame->consoles->contains($console->id) ? 'checked' : '' }} class="me-1">
-                    <label for="consoles-{{ $console->id }}">{{ $console->nome_console }}</label>
-                </div>
-            @endforeach
+
+        <div class="field-panel mb-3">
+            <p class="form-label mb-3">Console</p>
+            <div class="chip-grid">
+                @foreach ($consoles as $console)
+                    <label class="choice-chip" for="consoles-{{ $console->id }}">
+                        <input type="checkbox" name="consoles[]" value="{{ $console->id }}"
+                            id="consoles-{{ $console->id }}"
+                            {{ in_array($console->id, old('consoles', $videogame->consoles->pluck('id')->all())) ? 'checked' : '' }}
+                            class="form-check-input">
+                        <span>{{ $console->nome_console }}</span>
+                    </label>
+                @endforeach
+            </div>
         </div>
-        <div class="form-control mb-3 d-flex flex-column">
-            <label for="anno_videogame">Anno uscita videogame</label>
-            <input type="year" name="anno_videogame" id="anno_videogame" class="rounded"
-                value="{{ $videogame->anno_videogame }}" required>
+
+        <div class="field-panel mb-3">
+            <label for="anno_videogame" class="form-label">Anno uscita videogame</label>
+            <input type="number" name="anno_videogame" id="anno_videogame" class="form-control" min="1950"
+                max="2100" value="{{ old('anno_videogame', $videogame->anno_videogame) }}" required>
         </div>
-        <div class="form-control mb-3 d-flex flex-column">
-            <label for="developer_id">Sviluppatore</label>
-            <select name="developer_id" id="developer_id" class="rounded" required>
+
+        <div class="field-panel mb-4">
+            <label for="developer_id" class="form-label">Sviluppatore</label>
+            <select name="developer_id" id="developer_id" class="form-select" required>
                 @foreach ($developers as $developer)
                     <option value="{{ $developer->id }}"
-                        {{ $videogame->developer_id == $developer->id ? 'selected' : '' }}>
+                        {{ old('developer_id', $videogame->developer_id) == $developer->id ? 'selected' : '' }}>
                         {{ $developer->nome_sviluppatore }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="d-flex flex-row gap-2">
-            <input type="submit" class="btn btn-outline-success w-50" value="Salva">
-            <a href="{{ route('videogames.index') }}" class="btn btn-outline-secondary w-50">Indietro</a>
+
+        <div class="d-flex flex-column flex-md-row gap-3">
+            <input type="submit" class="btn btn-brand w-100" value="Salva modifiche">
+            <a href="{{ route('videogames.index') }}" class="btn btn-ghost w-100">Indietro</a>
         </div>
 
     </form>

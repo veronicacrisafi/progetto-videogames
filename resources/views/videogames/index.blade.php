@@ -1,42 +1,61 @@
 @extends('layouts.videogames')
 @section('titolo', 'Tutti i videogames')
 @section('contenuto')
-    <a href="{{ route('videogames.create') }}" class="btn btn-outline-success my-4">Aggiungi nuovo videogame</a>
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+        <div>
+            <span class="eyebrow">Catalogo completo</span>
+            <p class="section-copy mb-0">{{ $videogames->count() }} titoli disponibili, con accesso rapido a scheda, modifica
+                ed eliminazione.</p>
+        </div>
+        <a href="{{ route('videogames.create') }}" class="btn btn-brand">Aggiungi nuovo videogame</a>
+    </div>
 
-    <div class="row">
+    <div class="row g-4">
         @foreach ($videogames as $videogame)
-            <div class="col-4 my-3">
-                <div class="card h-100 d-flex flex-column">
-                    <div class="card-body d-flex flex-column">
-                        <h4 class="card-title mb-3">{{ $videogame->titolo_videogame }}</h4>
+            <div class="col-md-6 col-xl-4">
+                <article class="game-card h-100">
+                    <div class="game-card__content d-flex flex-column h-100">
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                            <div>
+                                <span class="game-card__eyebrow">{{ $videogame->anno_videogame }}</span>
+                                <h3 class="game-card__title mb-0">{{ $videogame->titolo_videogame }}</h3>
+                            </div>
+                            <span class="meta-chip"><i class="bi bi-controller"></i>{{ count($videogame->consoles) }}</span>
+                        </div>
+
                         <div class="mb-3">
-                            <p>Genere:</p>
+                            <p class="label-title">Genere</p>
                             @if (count($videogame->genres) > 0)
                                 @foreach ($videogame->genres as $genre)
-                                    <span class="badge"
+                                    <span class="badge genre-badge"
                                         style="background-color: {{ $genre->colore }}">{{ $genre->genere_videogame }}</span>
                                 @endforeach
                             @endif
                         </div>
-                        <p>Descrizione: </p>
-                        <h5 class="card-subtitle mb-4 text-color-secondary">{{ $videogame->descrizione_videogame }}</h5>
+
+                        <p class="label-title">Descrizione</p>
+                        <p class="game-card__text">{{ Str::limit($videogame->descrizione_videogame, 140) }}</p>
+
                         <div class="mb-3">
-                            <p>Per Console: </p>
+                            <p class="label-title">Console</p>
                             @if (count($videogame->consoles) > 0)
                                 @foreach ($videogame->consoles as $console)
-                                    <span class="badge text-bg-secondary">{{ $console->nome_console }}</span>
+                                    <span class="badge console-badge">{{ $console->nome_console }}</span>
                                 @endforeach
                             @endif
                         </div>
-                        <p>Anno:</p>
-                        <h6 class="card-subtitle mb-3">{{ $videogame->anno_videogame }}</h6>
-                        <p>Sviluppatore: {{ $videogame->developer?->nome_sviluppatore }}</p>
-                        <div class="mt-auto">
-                            <a class='btn btn-outline-primary w-100'
+
+                        <div class="game-card__footer mt-auto">
+                            <span><i
+                                    class="bi bi-building"></i>{{ $videogame->developer?->nome_sviluppatore ?? 'Nessuno sviluppatore' }}</span>
+                        </div>
+
+                        <div class="mt-4">
+                            <a class='btn btn-ghost w-100'
                                 href="{{ route('videogames.show', $videogame->id) }}">Visualizza</a>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
         @endforeach
     </div>

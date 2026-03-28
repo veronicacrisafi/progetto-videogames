@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Videogames</title>
-</head>
+@section('content')
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-panel hero-panel--compact">
+                <div class="row align-items-end g-4">
+                    <div class="col-lg-8">
+                        <span class="eyebrow">Gestionale catalogo</span>
+                        <h1 class="page-hero__title">@yield('titolo')</h1>
+                        <p class="page-hero__text">Consulta, aggiorna e organizza i tuoi videogiochi con una vista più pulita
+                            e orientata ai contenuti.</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        @yield('backLink')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<body>
-    <div class="container">
-        <h1>
-            @yield('titolo')
-        </h1>
-        @yield('backLink')
-        @yield('contenuto')
-    </div>
-
-</body>
-
-</html>
+    <section class="page-section pt-0">
+        <div class="container">
+            @yield('contenuto')
+        </div>
+    </section>
+@endsection

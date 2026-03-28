@@ -2,58 +2,107 @@
 
 @section('titolo', 'VIDEOGAME')
 @section('backLink')
-    <p class="mb-3">
-        <a class="btn btn-outline-secondary" href="{{ route('videogames.index') }}">🔙 confermo e torno ai videogames</a>
-    </p>
+    <a class="btn btn-ghost" href="{{ route('videogames.index') }}">Torna al catalogo</a>
 @endsection
 @section('contenuto')
-    <div class="row">
-        <div class="col">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title mb-5">{{ $videogame->titolo_videogame }}</h4>
-                    <div class="mb-3">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <article class="game-card h-100">
+                <div class="game-card__content">
+                    <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-4">
+                        <div>
+                            <span class="game-card__eyebrow">{{ $videogame->anno_videogame }}</span>
+                            <h2 class="detail-title mb-0">{{ $videogame->titolo_videogame }}</h2>
+                        </div>
+                        <div class="meta-stack justify-content-lg-end">
+                            <span class="meta-chip"><i
+                                    class="bi bi-calendar-event"></i>{{ $videogame->anno_videogame }}</span>
+                            <span class="meta-chip"><i
+                                    class="bi bi-building"></i>{{ $videogame->developer?->nome_sviluppatore ?? 'Nessuno sviluppatore' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="label-title">Generi</p>
                         @if (count($videogame->genres) > 0)
-                            @foreach ($videogame->genres as $genre)
-                                <span class="badge"
-                                    style="background-color: {{ $genre->colore }}">{{ $genre->genere_videogame }}</span>
-                            @endforeach
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach ($videogame->genres as $genre)
+                                    <span class="badge genre-badge"
+                                        style="background-color: {{ $genre->colore }}">{{ $genre->genere_videogame }}</span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="detail-copy mb-0">Nessun genere associato.</p>
                         @endif
                     </div>
-                    <p class="card-text">Descrizione: {{ $videogame->descrizione_videogame }}</p>
-                    <div class="mb-3">
+
+                    <div class="detail-block mb-4">
+                        <p class="label-title">Descrizione</p>
+                        <p class="detail-copy mb-0">{{ $videogame->descrizione_videogame }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="label-title">Console disponibili</p>
                         @if (count($videogame->consoles) > 0)
-                            @foreach ($videogame->consoles as $console)
-                                <span class="badge text-bg-secondary">{{ $console->nome_console }}</span>
-                            @endforeach
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach ($videogame->consoles as $console)
+                                    <span class="badge console-badge">{{ $console->nome_console }}</span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="detail-copy mb-0">Nessuna console associata.</p>
                         @endif
                     </div>
-                    <p class="card-text">Anno di uscita: {{ $videogame->anno_videogame }}</p>
-                    <p class="card-text">Sviluppatore: {{ $videogame->developer?->nome_sviluppatore }}</p>
-                    <div class="d-flex py-4">
-                        <a href="{{ route('videogames.edit', $videogame) }}"
-                            class="btn btn-outline-warning w-50">Modifica</a>
-                        <button type="button" class="btn btn-outline-danger w-50" data-bs-toggle="modal"
+
+                    <div class="d-flex flex-column flex-md-row gap-3 pt-3">
+                        <a href="{{ route('videogames.edit', $videogame) }}" class="btn btn-brand w-100">Modifica</a>
+                        <button type="button" class="btn btn-outline-danger w-100" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Elimina
                         </button>
                     </div>
                 </div>
-            </div>
+            </article>
+        </div>
+
+        <div class="col-lg-4">
+            <aside class="glass-card h-100">
+                <span class="eyebrow">Scheda rapida</span>
+                <h3 class="section-title mt-2">Metadati</h3>
+                <div class="detail-list mt-4">
+                    <div>
+                        <span>Anno di uscita</span>
+                        <strong>{{ $videogame->anno_videogame }}</strong>
+                    </div>
+                    <div>
+                        <span>Sviluppatore</span>
+                        <strong>{{ $videogame->developer?->nome_sviluppatore ?? 'Nessuno sviluppatore' }}</strong>
+                    </div>
+                    <div>
+                        <span>Generi associati</span>
+                        <strong>{{ count($videogame->genres) }}</strong>
+                    </div>
+                    <div>
+                        <span>Console associate</span>
+                        <strong>{{ count($videogame->consoles) }}</strong>
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <div class="modal-content app-modal">
+                <div class="modal-header border-0 pb-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma eliminazione</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Vuoi eliminare definitivamente il videogames?
+                    Vuoi eliminare definitivamente questo videogame dal catalogo?
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Annulla</button>
                     <form action="{{ route('videogames.destroy', $videogame) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -63,4 +112,3 @@
             </div>
         </div>
     </div>
-@endsection
