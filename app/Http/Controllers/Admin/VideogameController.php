@@ -136,6 +136,9 @@ class VideogameController extends Controller
         //
         $videogame->genres()->detach();
         $videogame->consoles()->detach();
+        if ($videogame->image) {
+            Storage::delete($videogame->image);
+        }
         $videogame->delete();
         return redirect()->route('videogames.index');
     }
