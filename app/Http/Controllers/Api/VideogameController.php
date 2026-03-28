@@ -10,6 +10,12 @@ class VideogameController extends Controller
     //
     public function index()
     {
-        return 'sei nella index api';
+        return response()->json(
+            [
+                "success" => true,
+                "data" => 'tutto funziona bene '
+
+            ]
+        );
     }
 }
