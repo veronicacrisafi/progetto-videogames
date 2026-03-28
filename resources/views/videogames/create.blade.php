@@ -7,7 +7,7 @@
         </div>
     @endif
 
-    <form action="{{ route('videogames.store') }}" method="POST" class="form-shell">
+    <form action="{{ route('videogames.store') }}" method="POST" class="form-shell" enctype="multipart/form-data">
         @csrf
         <div class="field-panel mb-3">
             <label for="titolo_videogame" class="form-label">Titolo Videogame</label>
@@ -62,6 +62,11 @@
                         {{ $developer->nome_sviluppatore }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="field-panel mb-4">
+            <label for="image" class="form-label">Immagine</label>
+            <input type="file" id="image" name="image" class="form-control form-control--file" accept="image/*">
         </div>
 
         <div class="d-flex flex-column flex-md-row gap-3">
