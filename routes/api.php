@@ -9,3 +9,4 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::get('videogames', [VideogameController::class, 'index']);
+Route::get('videogames/{id}', [VideogameController::class, 'show']);

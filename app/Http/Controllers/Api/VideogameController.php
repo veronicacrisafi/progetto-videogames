@@ -11,14 +11,20 @@ class VideogameController extends Controller
     //
     public function index()
     {
-        $videogames = Videogame::all();
+        $videogames = Videogame::with(['genres', 'consoles', 'developer'])->get();
 
-        return response()->json(
-            [
-                "success" => true,
-                "data" => $videogames
+        return response()->json([
+            "success" => true,
+            "data" => $videogames
+        ]);
+    }
 
-            ]
-        );
+    public function show($id)
+    {
+        $videogame = Videogame::with(['genres', 'consoles', 'developer'])->findOrFail($id);
+        return response()->json([
+            "success" => true,
+            "data" => $videogame
+        ]);
     }
 }
