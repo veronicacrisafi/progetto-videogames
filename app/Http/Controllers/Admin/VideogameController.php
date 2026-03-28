@@ -8,6 +8,7 @@ use App\Models\Developer;
 use App\Models\Genre;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VideogameController extends Controller
 {
@@ -53,6 +54,9 @@ class VideogameController extends Controller
         }
         if ($request->has('consoles')) {
             $newVideogame->consoles()->attach($data['consoles']);
+        }
+        if (array_key_exists('image', $data)) {
+            $img_url = Storage::putFile('videogames', $data['image']);
         }
 
         return redirect()->route('videogames.show', $newVideogame);
