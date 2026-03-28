@@ -106,6 +106,13 @@ class VideogameController extends Controller
         $videogame->anno_videogame = $data['anno_videogame'];
         $videogame->developer_id = $data['developer_id'];
 
+        if (array_key_exists('image', $data)) {
+
+            Storage::delete($videogame->image);
+            $img_url = Storage::putFile('videogames', $data['image']);
+            $videogame->image = $img_url;
+        }
+
         $videogame->update();
         if ($request->has('genres')) {
             $videogame->genres()->sync($data['genres']);
