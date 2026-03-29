@@ -99,27 +99,37 @@ class VideogameController extends Controller
      */
     public function update(Request $request, Videogame $videogame)
     {
-        //
-        $data = $request->all();
+        $data = $request->validate([
+            'titolo_videogame' => 'required|string|max:255',
+            'descrizione_videogame' => 'required|string',
+            'anno_videogame' => 'required|integer|min:1950|max:2100',
+            'developer_id' => 'required|exists:developers,id',
+            'genres' => 'nullable|array',
+            'consoles' => 'nullable|array',
+            'image' => 'nullable|image|mimes:jpeg,png,gif,webp|max:25600',
+        ]);
+
         $videogame->titolo_videogame = $data['titolo_videogame'];
         $videogame->descrizione_videogame = $data['descrizione_videogame'];
         $videogame->anno_videogame = $data['anno_videogame'];
         $videogame->developer_id = $data['developer_id'];
 
-        if (array_key_exists('image', $data)) {
-
-            Storage::delete($videogame->image);
+        if ($request->hasFile('image')) {
+            if ($videogame->image) {
+                Storage::delete($videogame->image);
+            }
             $img_url = Storage::putFile('videogames', $data['image']);
             $videogame->image = $img_url;
         }
 
-        $videogame->update();
-        if ($request->has('genres')) {
+        $videogame->save();
+
+        if (isset($data['genres'])) {
             $videogame->genres()->sync($data['genres']);
         } else {
             $videogame->genres()->detach();
         }
-        if ($request->has('consoles')) {
+        if (isset($data['consoles'])) {
             $videogame->consoles()->sync($data['consoles']);
         } else {
             $videogame->consoles()->detach();
